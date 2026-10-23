@@ -1,82 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="shortcut icon" href="misc/logo.png" type="image/x-icon">  
-    <title>Rohit Yentruvi</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rohit's Game Design Document</title>
+<meta name="description" content="Rohit Yentruvi, game designer. A portfolio built like a game design document.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800;900&display=swap">
+<link rel="stylesheet" href="css/site.css">
 </head>
 <body>
-
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-          <!-- <svg class="bi me-2" width="40" height="32"><use xlink:href=""/></svg> -->
-          <img id="dp" src="misc/logo.png" alt="logo">
-          <span class="fs-4">Rohit Yentruvi</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item list">
-            <a href="#" class="nav-link link-dark" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-              HOME
-            </a>
-          </li>
-          <li class="list">
-            <a href="#" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-              PORTFOLIO
-            </a>
-          </li>
-          <li class="list">
-            <a href="webpages/about.html" class="nav-link link-dark ">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-              ABOUT
-            </a>
-          </li>
-          <li class="list">
-            <a href="mailto:rohityentruvi@protonmail.com" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-              CONTACT
-            </a>
-          </li>
-        </ul>
-        <hr>
-        <div class="dropdown">
-            <div>
-                <a href="https://www.instagram.com/rohit_yentruvi/" class="social-links" target="_blank">
-                    <img class="socials" src="misc/insta.svg" alt="insta">
-                </a> 
-                
-                <a href="https://www.youtube.com/channel/UC0FnK9JLnPkX3v7SR7lcmlA/" class="social-links" target="_blank">
-                <img class="socials" src="misc/youtube.svg" alt="yt">
-                </a>
-
-                <a href="https://twitter.com/RohitYentruvi" class="social-links" target="_blank">
-                    <img class="socials" src="misc/twitter.svg" alt="twitter">
-                </a>
-            </div>
-             <!-- <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>mdo</strong>
-          </a>
-          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-          </ul> -->
+<!--SHELL-->
+<div id="wrap">
+  <div id="stagebox">
+    <div id="stage">
+      <div id="slot"></div>
+      <button class="tab l" id="tab-l" type="button" hidden></button>
+      <button class="tab r" id="tab-r" type="button" hidden></button>
+      <button class="tab u" id="tab-u" type="button" hidden></button>
+      <button class="tab d" id="tab-d" type="button" hidden></button>
+      <div class="hud" id="minimap" role="button" tabindex="0" aria-label="Open the map"></div>
+      <div class="hud" id="dpad">
+        <h4>NAVIGATE <small>OR KEYS</small></h4>
+        <div class="pad">
+          <button class="db" type="button" data-dir="u" aria-label="Up"></button>
+          <button class="db" type="button" data-dir="l" aria-label="Left"></button>
+          <button class="db mid" type="button" id="btn-map" aria-label="Open the map">MAP</button>
+          <button class="db" type="button" data-dir="r" aria-label="Right"></button>
+          <button class="db" type="button" data-dir="d" aria-label="Down"></button>
         </div>
+        <div class="keys">Arrows · WASD · scroll<br>M for map · Esc to pause</div>
       </div>
-        <div id="content">
-          <img src="misc/wall.jpg" alt="wall" id="bg">
-          
-        </div>
-    <script src="js/main.js"></script>
-    <!-- <script src="bootstrap/js/bootstrap.bundle.js"></script> -->
+      <div id="mbar"><button type="button" id="m-map">MAP · <span id="m-count"></span></button><button type="button" id="m-title">MENU</button></div>
+      <div id="overlay" role="dialog" aria-modal="true" aria-label="World map"></div>
+      <div id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork"></div>
+      <div id="toasts"></div>
+    </div>
+  </div>
+</div>
+<p class="sr" id="live" aria-live="polite"></p>
+<script src="content.js"></script>
+<script src="js/engine.js"></script>
+<!--/SHELL-->
 </body>
 </html>
