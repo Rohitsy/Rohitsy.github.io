@@ -507,7 +507,8 @@
 .t-btn:disabled { opacity: .4; cursor: default; }
 .t-ic { width: 40px; height: 40px; flex: none; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; font-family: var(--d); font-size: 19px; color: var(--gold); }
 .t-bn { display: block; font-size: 24px; line-height: 1; }
-.t-bs { display: block; font-size: 13px; color: var(--sky-light); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t-bs { display: block; font-size: 13px; line-height: 1.25; color: var(--sky-light); margin-top: 3px; overflow-wrap: anywhere; }
+.t-btn > span:last-child { min-width: 0; flex: 1; }
 .t-opts { display: flex; gap: 10px; margin-top: -6px; }
 .t-jump { font-size: 13px; letter-spacing: .16em; color: var(--sky-light); }
 .t-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -10px; }

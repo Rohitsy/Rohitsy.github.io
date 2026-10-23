@@ -258,11 +258,14 @@ function fit() {
   if (m !== mode) { mode = m; document.body.classList.toggle('M', mob); document.body.classList.toggle('D', !mob); if (cur) { renderTabs(cur); activateMedia(cur); } }
   document.body.classList.toggle('sm', !mob && s < 0.8);
   document.body.classList.toggle('short', mob && h < 520);
-  if (mob) { stage.style.transform = ''; return; }
+  if (mob) { stage.style.transform = ''; stage.style.zoom = ''; return; }
   stagebox.style.width = (1920 * s) + 'px';
   stagebox.style.height = (1080 * s) + 'px';
-  stage.style.transform = `scale(${s})`;
+  // zoom re-lays the stage out at its real size, so text stays sharp at any browser zoom.
+  // A scale() transform gets rasterised once and stretched, which is what made it blurry.
+  if (ZOOM) { stage.style.transform = ''; stage.style.zoom = s; } else stage.style.transform = `scale(${s})`;
 }
+var ZOOM = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('zoom', '0.5');
 window.addEventListener('resize', () => requestAnimationFrame(fit));
 
 /* ---------- HUD ---------- */
