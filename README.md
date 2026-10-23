@@ -32,7 +32,18 @@ Plain HTML. No build step, no coding tools. Everything you edit is in **one file
      { src: 'media/screens/alien-out/1.png', note: 'One line on the design decision this screen shows.' },
    ],
    ```
-3. Delete the placeholder `.svg` lines once your real ones are in.
+3. Your own screens show first, ahead of the store screenshots. Add a `note` and it shows beside the screen on phones.
+
+### Store screenshots, trailers and icons
+Each game can also carry these lines in `content.js` (already filled in for the shipped games):
+```js
+icon: 'https://…',                                   // store icon, used as the thumbnail in maps and lists
+store: { label: 'Google Play', shots: ['https://…', 'https://…'] },   // linked live from the store page
+trailer: { yt: 'N3vPJ7n7foY', label: 'Official trailer' },             // YouTube id: the part after watch?v=
+```
+- To swap a trailer, copy the id from its YouTube link (`youtube.com/watch?v=` **`N3vPJ7n7foY`**) and paste it between the quotes.
+- Store images load straight from the store. If a store ever removes one, the room switches to the film layout by itself.
+- Phone-shaped shots show in a phone frame; wide shots show in a wide screen. The site picks this from the image.
 
 ### Add art
 Upload into `media/art/3d` (mp4 turntables), `media/art/2d` or `media/art/sketch` (images), then add a line to that gallery's `pieces:` list in `content.js`:

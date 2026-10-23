@@ -98,8 +98,17 @@ window.GDD = {
   /* ---------- QUESTS: one block per project room ----------
      id        : short name used in links (no spaces)
      tab       : which section it sits in ('main', 'side', 'codex', 'inventory')
-     screens   : real screenshots, top to bottom = first to last. 'note' is shown on phones.
-     gameplay  : optional screen recording (mp4), plays first in the phone frame
+     screens   : YOUR OWN screenshots (uploaded to media/screens/...). Shown first. 'note' shows on phones.
+     gameplay  : optional screen recording (mp4) of your own, plays first
+     store     : real store screenshots linked from Google Play / itch.io / TapTap.
+                 Shown after your own screens. If a link ever breaks, the room quietly
+                 falls back to the film layout, so nothing looks broken.
+                 Optional 'note' shows with the full-size screenshots.
+                 Each shot has a 'title' and 'note': write one line on what to notice.
+                 On phones they show as numbered notes beside the screens.
+                 Leave both empty and that screen just shows in the tap stack.
+     trailer   : a YouTube video id (the part after watch?v=). Plays in a big player.
+     icon      : the app's store icon, used as the thumbnail in maps and section lists
      films     : the motion films (in media/videos, posters in media/posters)
   ----------------------------------------------------------------- */
   quests: [
@@ -117,12 +126,17 @@ window.GDD = {
       ],
       loot: [{ label: 'Play on Google Play', url: 'https://play.google.com/store/apps/details?id=com.tapnplay.ufoconnect' }],
       gameplay: '',
-      screens: [
-        { src: 'media/screens/alien-out/1.svg', note: 'Drag a UFO to an island: one gesture is the whole move.' },
-        { src: 'media/screens/alien-out/2.svg', note: 'Matching aliens board: the colour-sort payoff of the loop.' },
-        { src: 'media/screens/alien-out/3.svg', note: 'Mismatched aliens wait on islands. That’s where the strategy is.' },
-        { src: 'media/screens/alien-out/4.svg', note: 'A full UFO flies away and clears space.' },
-      ],
+      screens: [],   // your own screenshots go here first, e.g. { src: 'media/screens/alien-out/1.png', note: 'what this screen shows' }
+      icon: 'https://play-lh.googleusercontent.com/6qmGacYRzvBuM0mCCf0mbXO5CSycCsYIUzB8pOAwgtYsFCpgqs4r26CtdzfTgDNFgKSHndNu4OElavp4QbWZ=w240-h480',
+      store: { label: 'Google Play', shots: [
+        { src: 'https://play-lh.googleusercontent.com/Y2O2HL2oO84X6jm4CpcfYbN30Rf4AngpHQApZQBy4x6bWW4U1RBahVNmWDhdVmydksnACB4Fk6IJJSAlOTEpSA=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/qzUOui3j1tVwHvutw_P9Ag3lXI-uXOFW5VQzlcmSarUe64chU_UuIIeUYrAs9QLnWMNi6LiaG5ItfmLLEgDVZJk=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/XSkCR3xFUd0gauBO2gpmV9Cz1WwjmephcgmyPwfrFUpeVjKqsXKGGhCY6oaMSUvSMv9-1a84DPl9cElra2UUuQ=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/iDaq8Ktxt5bdGW7PHZE-ZxjV--bS64NgKh_V00zb2KywCVJ1O8LI1V_h-op3oJYMY_6iYRtICAyifdzkLLdn5Q=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/jxmqisejLIYc0qu9r7PXWy3cKdQz5H_bt9JbWFOYv5waGvC1tV-BKcpeQY-9DGXB296AWvCbZhFSoX96WEhCpA=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/8R15iYvswfE35QBR4TI85Zx6-XUnXC1L69r5ITWqBHPa1MFb_u9AVwalUJFojjpisj81wYVetWVMcplxiG0rrQ=w1280-h1280', title: '', note: '' },
+      ] },
+      trailer: { yt: 'N3vPJ7n7foY', label: 'Official trailer' },
       films: [{ id: '07-finding-the-gap', label: 'Finding the gap' }, { id: '09-ad-research', label: 'Ad research' }] },
 
     { id: 'loopy-duck', tab: 'main', title: 'Loopy Duck', short: 'Loopy Duck', sub: 'Tap N Play · 2026', eyebrow: 'Tap N Play Studios · Jan – Feb 2026', status: 'Completed · MVP shipped', st: 'MVP shipped', kind: 'done', thumb: '08-tuning-curve',
@@ -138,12 +152,17 @@ window.GDD = {
       ],
       loot: [{ label: 'Play on Google Play', url: 'https://play.google.com/store/apps/details?id=com.tapnplay.loopyduck' }],
       gameplay: '',
-      screens: [
-        { src: 'media/screens/loopy-duck/1.svg', note: 'One tap sends a group of ducklings into the stream.' },
-        { src: 'media/screens/loopy-duck/2.svg', note: 'Wrong colours wait on islands until their basket comes.' },
-        { src: 'media/screens/loopy-duck/3.svg', note: 'The right ducklings fill their basket.' },
-        { src: 'media/screens/loopy-duck/4.svg', note: 'The jam clears: the payoff the curve builds towards.' },
-      ],
+      screens: [],   // your own screenshots go here first, e.g. { src: 'media/screens/loopy-duck/1.png', note: 'what this screen shows' }
+      icon: 'https://play-lh.googleusercontent.com/La7M3hhPtyxNx0NBC00c2VquSLyPWWjtuZ5eChip7k-gwtPlfSDTtSE8mgN4F-700DwR57Ec8_rv5OLLNkF3=w240-h480',
+      store: { label: 'Google Play', shots: [
+        { src: 'https://play-lh.googleusercontent.com/wcsT2Ek9kujZ5fjlhZOVQLXmXU_JMwtxEdW45bukwcgzaC_zMXCsbUWtdENZUG460Qxk3k4dRiYOrB-cx6sKXA=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/fpBAZviUDrhESM3Rwo7t2emlqzBjJlEjaVYLv0ZajAIRWVXvN-C9vd417BH6ZFE83UMxf_jvkDHdyq2e1xKw=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/0Vix48F5nUrPUGrP5SmVon01Fa8aFrGn9lEFYeAXDoOnJNaBUTg4uLLAclayiGIMxUZVf4t3s64WecWYMtqBww=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/JSfqvkWJ_nY295EHcmqTfmbdVNUHrHQh2KOcHGvpl1agGvBv8mGpiwFnroeuoAjJgOS-PFsQdajsLRr-DG6tQg=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/9XIUcq8PyHIo6JYeEV148ZVPNPoFLAtS39GeJS2k0wAKZzMjmnSX576Sbh8LCIEGZmJswiqM_X1v2I0nSgYt=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/47L-VPBSE1UGoH9iKUvwGP0zKxpEBcb1pBMy0p1-H1WEyQlbXdpdAL87B53jSTOAFGbNEautDtYNh5X9QB5PLg=w1280-h1280', title: '', note: '' },
+      ] },
+      trailer: { yt: 'RjxXNye6wGI', label: 'Official trailer' },
       films: [{ id: '08-tuning-curve', label: 'Tuning the curve (illustrative)' }, { id: '09-ad-research', label: 'Ad research' }] },
 
     { id: 'murder-mystery-2', tab: 'main', title: 'Hidden Escape: Murder Mystery 2', short: 'Murder Mystery 2', sub: 'Vincell · Chapter 7', eyebrow: 'Vincell Studios · Chapter 7', status: 'Completed · shipped', st: 'Shipped', kind: 'done', thumb: '13-mm2',
@@ -159,6 +178,17 @@ window.GDD = {
       ],
       loot: [{ label: 'Hidden Escape Mysteries on Google Play', url: 'https://play.google.com/store/apps/details?id=com.vincellstudios.hiddenescapelosttemple' }],
       gameplay: '', screens: [],
+      icon: 'https://play-lh.googleusercontent.com/z77D17Q2XQs-bqEbHkTlbqwBzQVVBQjZp4t1yeKk9Eywkm9jhroy7o-NNxFGCSDPsF1oyuXE1TIdfgcXIviV=w240-h480',
+      store: { label: 'Hidden Escape app', note: 'These store screenshots cover the whole Hidden Escape app, not only Murder Mystery 2.', shots: [
+        { src: 'https://play-lh.googleusercontent.com/4Iwq-HBT0o3kxdenTe27KWSzwfQlUlwTI2NRzbtg9vTwhiDTkCGXbl12B8AAAlMy993EaAiU5ocJIzqmeL3-4Q=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/sfcxeCBMfiTLeh-QSPO_VfqYBfmYuCAn-yV7YHH4hYSUZ2gC4_EbWrg1wHqXgD_4UXHjO04-4RpBAg842Fkx=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/ui0iVMtNGZNe6ivfWPPz3oFRUQJmchqdPKCcUyDI_TtSxibNQHjGAFUrLbqaWUUX9jUrFSYCRU-9hMwqh5KI4A=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/NJp8xwX79rJrJ2wtP9cF0ajtEm6unSTFAU9ukUPG8VW2zcKUCTG6SP74FnGRPCyB7V8qAIZDuDILLzdf1vwBAg=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/917LFC6yLMDYtRykXNIYULojEi9PvXuPOCaaOaVMT1cSWt4QMJgyxofS7mq2UtB2reHfClKFRVSIKs5HY_kkYsE=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/pphU1eXEE9ebfHlpv6luEPQte3JurUv7MmZgEMoSb0RMwOhzx2ZCoEeJvn87wU3B0i-shdMt1nE1XAHFb2X3=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/SnSgBv3_rwECBNN7a6gCsa_WMsuOjN4C5yOLyraQt7s8y-LGPi6-GqPrdZpMJ_Gqxk-SUA4peejVMrXeOM3C=w1280-h1280', title: '', note: '' },
+        { src: 'https://play-lh.googleusercontent.com/xS4jCK29UE8vyWpH3fFbu8HDLrF-XOsj-sP4-AOW8jb30tBQgvzzGyHrxK4G31wDIjjmDwP3JOt5WlZcjU7H=w1280-h1280', title: '', note: '' },
+      ] },
       films: [{ id: '13-doc-stack', label: 'What one chapter takes', poster: '13-mm2', t: 4.6 }] },
 
     { id: 'lost-island', tab: 'main', title: 'Hidden Escape: Lost Island', short: 'Lost Island', sub: 'Vincell · Chapters 4 + 7', eyebrow: 'Vincell Studios · Chapters 4 + 7', status: 'Completed · shipped', st: 'Shipped', kind: 'done', thumb: '13-lost-island',
@@ -172,8 +202,12 @@ window.GDD = {
         'Ran playtests and iterated on the findings',
         'Kept flow and theme consistent with art, dev and QA through to launch',
       ],
-      loot: [{ label: 'Hidden Escape Mysteries on Google Play', url: 'https://play.google.com/store/apps/details?id=com.vincellstudios.hiddenescapelosttemple' }],
+      loot: [{ label: 'Hidden Escape Mysteries on Google Play', url: 'https://play.google.com/store/apps/details?id=com.vincellstudios.hiddenescapelosttemple' }, { label: 'Lost Island on the App Store', url: 'https://apps.apple.com/us/app/-/id6457256732', alt: true }],
       gameplay: '', screens: [],
+      icon: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/01/61/cb/0161cbfe-9a6f-8bc8-314a-bc8e30131510/AppIcon-1x_U007emarketing-0-7-0-85-220-0.png/512x512bb.jpg',
+      store: { label: 'TapTap', shots: [
+        { src: 'https://img.tapimg.net/market/images/d4c4147a4407500a16624810fcd1cd28.jpg?imageView2/2/w/1280/h/1280/q/80/format/jpg/interlace/1/ignore-error/1', title: '', note: '' },
+      ] },
       films: [{ id: '13-doc-stack', label: 'What one chapter takes', poster: '13-lost-island', t: 6.6 }] },
 
     { id: 'escapeverse', tab: 'main', title: 'Escapeverse Puzzle Adventure', short: 'Escapeverse', sub: 'Vincell · Chapter 4', eyebrow: 'Vincell Studios · Chapter 4', status: 'Completed · shipped', st: 'Shipped', kind: 'done', thumb: '13-escapeverse',
@@ -186,7 +220,7 @@ window.GDD = {
         'Reviewed builds for design quality, balance and bugs',
         'Worked with artists, developers and QA testers to align visuals, tech and gameplay',
       ],
-      loot: [{ label: 'Play on Google Play', url: 'https://play.google.com/store/apps/details?id=com.velocitigames.escapeverse' }],
+      loot: []   /* Play link hidden: the listing (com.velocitigames.escapeverse) returns an error. Add it back once confirmed live. */,
       gameplay: '', screens: [],
       films: [{ id: '13-doc-stack', label: 'What one chapter takes', poster: '13-escapeverse', t: 7.6 }] },
 
@@ -211,7 +245,10 @@ window.GDD = {
         'Documented puzzle logic and level flow for art, dev and QA',
         'Playtested and balanced the difficulty curve',
       ],
-      loot: [], gameplay: '', screens: [],
+      loot: [{ label: 'Seek & Puzzles on TapTap', url: 'https://www.taptap.io/app/33686035' }], gameplay: '', screens: [],
+      store: { label: 'TapTap', shots: [
+        { src: 'https://img.tapimg.net/market/images/bfc1d79b0ca55bf5d00fc0d02bbe471a.png?imageView2/2/w/1280/h/1280/q/80/format/jpg/interlace/1/ignore-error/1', title: '', note: '' },
+      ] },
       films: [{ id: '13-doc-stack', label: 'What one chapter takes' }] },
 
     { id: 'classified', tab: 'main', title: 'Classified', short: 'Classified', sub: 'Surag Studios · 2025', eyebrow: 'Surag Studios · Apr – Sep 2025 · part-time', status: 'Classified', st: 'Classified', kind: 'classified', thumb: 'classified',
@@ -230,7 +267,13 @@ window.GDD = {
       facts: [['Platform', 'PC'], ['Engine', 'Unity 2D'], ['Genre', 'Wave-based arcade shooter'], ['Role', 'Solo developer']],
       listTitle: 'Objectives', list: ['Built the whole game solo in Unity 2D for a prototyping module', 'Designed sound-based enemy AI: moving and shooting draw enemies in', 'Two enemy types with different behaviours', 'Hold Shift to move silently, at a cost', '50+ escalating waves, with a choice of two skills after each one', 'Now redesigning it as v2: waves out, breakable chambers in'],
       loot: [{ label: 'Play on itch.io', url: 'https://scary-ninja.itch.io/echo-shooter-2d' }],
-      gameplay: '', screens: [], films: [{ id: '14-echo-shooter', label: 'v1 and the v2 redesign' }] },
+      gameplay: '', screens: [], icon: 'https://img.itch.zone/aW1nLzIxODY0Njc4LnBuZw==/original/ifDwzB.png',
+      store: { label: 'itch.io', shots: [
+        { src: 'https://img.itch.zone/aW1hZ2UvMzY3NDcwNi8yMTg2NDk0Mi5wbmc=/original/0qxP5F.png', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvMzY3NDcwNi8yMTg3MjI5Mi5wbmc=/original/YA9Tsk.png', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1nLzIxODY0Njc4LnBuZw==/original/ifDwzB.png', title: '', note: '' },
+      ] },
+      films: [{ id: '14-echo-shooter', label: 'v1 and the v2 redesign' }] },
 
     // TODO (Rohit): replace the objectives with what YOU did on the team
     { id: 'kitts-hog', tab: 'side', title: 'Kitt’s Hog: The Nightmare of Life', short: 'Kitt’s Hog', sub: 'IGDC 2019 · 7-day team game', eyebrow: 'College team · IGDC 2019 · 1st semester', status: 'Completed · released', st: 'Released', kind: 'done', thumb: '16-kitts-hog',
@@ -243,7 +286,19 @@ window.GDD = {
         'Released it free for Android on itch.io',
       ],
       loot: [{ label: 'Get it on itch.io', url: 'https://bounty-hunters.itch.io/kitts-hog-the-nightmare-of-life' }],
-      gameplay: '', screens: [], films: [{ id: '16-kitts-hog', label: 'Teaser' }] },
+      gameplay: '', screens: [], icon: 'https://img.itch.zone/aW1nLzI1MzU0NDEucG5n/original/iHAdW%2F.png',
+      store: { label: 'itch.io', shots: [
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzIuanBlZw==/original/imduE%2B.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzEuanBlZw==/original/rUkryx.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzQuanBlZw==/original/DJECei.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzUuanBlZw==/original/eC%2FGJB.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzMuanBlZw==/original/9GSLDP.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzguanBlZw==/original/Wpepd1.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzcuanBlZw==/original/XRKGeR.jpeg', title: '', note: '' },
+        { src: 'https://img.itch.zone/aW1hZ2UvNDkwNTMxLzI1MzU0MzYuanBlZw==/original/mL7tbM.jpeg', title: '', note: '' },
+      ] },
+      trailer: { yt: 'y_UVO3euK7U', label: 'Gameplay video' },
+      films: [{ id: '16-kitts-hog', label: 'Teaser' }] },
 
     // TODO (Rohit): replace the objectives with what YOU did on the team
     { id: 'ghost-buster', tab: 'side', title: 'Ghost Buster', short: 'Ghost Buster', sub: 'College team project', eyebrow: 'College team project', status: 'Completed · released', st: 'Released', kind: 'done', thumb: 'ghost',
@@ -254,7 +309,12 @@ window.GDD = {
         'Built the story set-up: Akins returning to the family mansion',
         'Released it on itch.io',
       ],
-      loot: [{ label: 'Get it on itch.io', url: 'https://hp083625.itch.io/ghost-buster' }], gameplay: '', screens: [], films: [] },
+      loot: [{ label: 'Get it on itch.io', url: 'https://hp083625.itch.io/ghost-buster' }], gameplay: '', screens: [], icon: 'https://img.itch.zone/aW1nLzQ1MzE0NTQucG5n/original/w%2Fq92%2F.png',
+      store: { label: 'itch.io cover', shots: [
+        { src: 'https://img.itch.zone/aW1nLzQ1MzE0NTQucG5n/original/w%2Fq92%2F.png', title: '', note: '' },
+      ] },
+      trailer: { yt: 'TyqRwQAGxKA', label: 'Gameplay video' },
+      films: [] },
 
     { id: 'match-factory', tab: 'codex', title: 'Match Factory', short: 'Match Factory', sub: 'Peak Games · teardown', eyebrow: 'Deconstruction · Peak Games', status: 'Economy teardown', st: 'Teardown', kind: 'tool', thumb: '18-match-factory',
       brief: 'A match-3D game that grew to around $400K a day. I took apart its loop and its economy: what you earn, what you spend, and what keeps you playing after a loss.',
