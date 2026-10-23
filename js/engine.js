@@ -70,7 +70,8 @@ ROOMS.title = { id: 'title', kind: 'title', title: 'Title screen', r: -1, c: 0, 
 const ORDER = MAPROWS.flat().map(r => r.id);
 const TOTAL = ORDER.length;
 const COLS = Math.max(...MAPROWS.map(r => r.length));
-const roomThumb = rm => rm.kind === 'character' ? ART.avatar : rm.kind === 'section' ? ART.section : qThumb(rm);
+const secThumb = id => `<span class="sec-th">${chIcon(id)}</span>`;
+const roomThumb = rm => rm.kind === 'character' ? ART.avatar : rm.kind === 'section' ? secThumb(rm.sec.id) : qThumb(rm);
 
 function exits(id) {
   const rm = ROOMS[id];
@@ -105,8 +106,18 @@ const reduced = () => sysReduce || save.motion === 'reduced';
 let soundOn = !!save.sound;
 
 /* ======================= ROOM TEMPLATES ======================= */
+// chapter icons replace the old § numbers everywhere
+const CHP = {
+  prologue: '<path d="M6 21V4"/><path d="M6 4h11l-3 4 3 4H6"/>',
+  main: '<path d="M14.5 4H20v5.5L10 19.5 4.5 14z"/><path d="M4 20l3-3"/>',
+  side: '<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+  codex: '<path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/>',
+  inventory: '<rect x="5" y="8" width="14" height="12" rx="3"/><path d="M9 8V6.5a3 3 0 016 0V8"/><path d="M9 13h6"/>',
+  art: '<path d="M12 3.5a8.5 8.5 0 100 17c1.2 0 1.7-.9 1.4-1.8-.4-1 .1-2.2 1.3-2.2h2a3.3 3.3 0 003.3-3.3A8.6 8.6 0 0012 3.5z"/><circle cx="8" cy="10" r="1.1" fill="currentColor"/><circle cx="12" cy="7.5" r="1.1" fill="currentColor"/><circle cx="16" cy="10" r="1.1" fill="currentColor"/>',
+};
+const chIcon = id => `<svg class="ch-ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${CHP[id] || CHP.prologue}</svg>`;
 const ph = right => `<header class="ph"><span>Game Design Document · ${esc(G.title.name)}</span><span>${right}</span></header>`;
-const secHead = rm => `§${rm.sec.no} · ${esc(rm.sec.label)} · room ${pad2(rm.no)}`;
+const secHead = rm => `${chIcon(rm.sec.id)}${esc(rm.sec.label)} · room ${pad2(rm.no)}`;
 let menuSel = 0;
 
 let optOpen = false;
@@ -119,7 +130,7 @@ function titleMenu() {
     <div class="t-row">${btn(lastRm ? 'go:' + lastRm.id : '', '↺', 'Continue', lastRm ? `${esc(lastRm.title)} · ${save.visited.length} / ${TOTAL}` : 'No save yet', !lastRm)}${btn('go:party-invite', '@', 'Contact', 'Email · CV')}${btn('opt:panel', '⚙', 'Options', 'Sound · motion')}</div>
     ${optOpen ? `<div class="t-opts"><button class="t-chip" type="button" data-act="opt:sound">♪ Sound: <b>${soundOn ? 'on' : 'off'}</b></button><button class="t-chip" type="button" data-act="opt:motion">⇄ Motion: <b>${reduced() ? 'reduced' : 'full'}</b></button></div>` : ''}
     <div class="t-jump">OR JUMP TO A CHAPTER</div>
-    <div class="t-chips"><button class="t-chip" type="button" data-act="go:main-character"><b>§0</b> Prologue</button>${SECTIONS.map(x => `<button class="t-chip" type="button" data-act="go:${x.id}"><b>§${x.no}</b> ${esc(x.label)}</button>`).join('')}</div>`;
+    <div class="t-chips"><button class="t-chip" type="button" data-act="go:main-character">${chIcon('prologue')} Prologue</button>${SECTIONS.map(x => `<button class="t-chip" type="button" data-act="go:${x.id}">${chIcon(x.id)} ${esc(x.label)}</button>`).join('')}</div>`;
 }
 
 function filmBlock(q, cls) {
@@ -198,18 +209,20 @@ function renderRoom(rm) {
     case 'title':
       return { tone: 'dark', html: ph('Title screen') + `<div class="pb"><div class="t-grid"><div><div class="t-kicker">${esc(T.label)}</div><h1 class="stamp t-logo">${T.heading}</h1><div class="d t-name">${esc(T.name)}</div><div class="t-tag">${esc(T.tagline)}</div></div><div class="t-menu" id="menu-items">${titleMenu()}</div></div></div>` };
     case 'character':
-      return { html: ph(`§0 · Prologue · room 01`) + `<div class="pb"><div class="c-grid"><div><div class="portrait">${C.avatar ? `<img src="${esc(C.avatar)}" alt="${esc(T.name)}">` : ART.avatar + '<span class="chip">Avatar coming soon</span>'}</div><dl class="stats">${C.stats.map(([k, v]) => `<div class="fact"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl><div class="tools-h">Toolbelt</div><div class="tools">${C.tools.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div></div><div class="c-main"><p class="eyebrow"><b>§0</b>Main Character</p><h2 class="d c-name">${esc(T.name)}</h2><p class="c-log">${esc(C.logline)}</p><div class="sec-h">Abilities, with proof</div><div class="abil">${C.abilities.filter(([, id]) => ROOMS[id]).map(([a, id]) => `<button class="ab" type="button" data-go="${id}"><span>${esc(a)}</span><span class="chip">→ ${esc(ROOMS[id].title)}</span></button>`).join('')}</div>${C.liveEvent ? `<div class="live"><span class="chip">LIVE EVENT</span><span>${esc(C.liveEvent)}</span></div>` : ''}</div></div></div>` };
+      return { html: ph(`${chIcon('prologue')}Prologue · room 01`) + `<div class="pb"><div class="c-grid"><div><div class="portrait">${C.avatar ? `<img src="${esc(C.avatar)}" alt="${esc(T.name)}">` : ART.avatar + '<span class="chip">Avatar coming soon</span>'}</div><dl class="stats">${C.stats.map(([k, v]) => `<div class="fact"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl><div class="tools-h">Toolbelt</div><div class="tools">${C.tools.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div></div><div class="c-main"><p class="eyebrow"><b class="ch-b">${chIcon('prologue')}</b>Main Character</p><h2 class="d c-name">${esc(T.name)}</h2><p class="c-log">${esc(C.logline)}</p><div class="sec-h">Abilities, with proof</div><div class="abil">${C.abilities.filter(([, id]) => ROOMS[id]).map(([a, id]) => `<button class="ab" type="button" data-go="${id}"><span>${esc(a)}</span><span class="chip">→ ${esc(ROOMS[id].title)}</span></button>`).join('')}</div>${C.liveEvent ? `<div class="live"><span class="chip">LIVE EVENT</span><span>${esc(C.liveEvent)}</span></div>` : ''}</div></div></div>` };
     case 'progress': {
       const P = G.progress, last = P.stages.length - 1;
       const stats = `<div class="pr-stats">${P.stats.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd class="d">${esc(v)}</dd></div>`).join('')}</div>`;
-      const stages = P.stages.map((s, i) => `<li class="pr-st${i === last ? ' boss' : ''}"><span class="d pr-node ${s.kind}">${esc(s.node)}</span><div class="pr-card"><span class="pr-tag">${esc(s.tag)}</span><div class="d pr-t">${esc(s.title)}</div><div class="pr-o">${esc(s.org)}</div><div class="pr-d">${esc(s.date)}</div><div class="pr-sk">${(s.skills || []).map(k => `<span>+ ${esc(k)}</span>`).join('')}</div></div></li>`).join('');
+      const stages = P.stages.map((s, i) => `<li class="pr-st${i === last ? ' boss' : ''}${s.kind === 'side' ? ' side' : ''}"><span class="d pr-node ${s.kind}">${esc(s.node)}</span><div class="pr-card"><span class="pr-tag">${esc(s.tag)}</span><div class="d pr-t">${esc(s.title)}</div><div class="pr-o">${esc(s.org)}</div><div class="pr-d">${esc(s.date)}</div><div class="pr-sk">${(s.skills || []).map(k => `<span>+ ${esc(k)}</span>`).join('')}</div></div></li>`).join('');
+      // side jobs that ran alongside the main road: a lane under the stages they overlap (from/to = stage numbers, first is 1)
+      const lanes = (P.alongside || []).length ? `<div class="pr-lanes" style="--n:${P.stages.length}">${P.alongside.map(l => `<div class="pr-lane" style="grid-column:${l.from} / ${l.to + 1}"><span class="pr-lstar">★</span><span class="pr-ltx"><span class="d">${esc(l.title)}</span> <span class="pr-o">${esc(l.org)}</span> <span class="pr-d">${esc(l.date)}</span></span>${(l.skills || []).length ? `<span class="pr-sk">${l.skills.map(k => `<span>+ ${esc(k)}</span>`).join('')}</span>` : ''}</div>`).join('')}</div>` : '';
       const solo = (P.solo || []).map(s => `<div class="pr-solo"><span class="pr-star">★</span><div><div class="d">${esc(s.title)}</div><div class="pr-o">${esc(s.org)} · <span class="pr-d">${esc(s.date)}</span></div></div></div>`).join('');
-      return { html: ph('§0 · Prologue · room 02') + `<div class="pb"><div class="pr-head"><div><p class="eyebrow"><b>§0</b>Progress · save file 01</p><h2 class="d pr-h">Progress</h2></div>${stats}</div><ol class="pr-road">${stages}</ol>${solo ? `<div class="pr-solos"><span class="d pr-sl">Solo quests</span>${solo}</div>` : ''}</div>` };
+      return { html: ph(`${chIcon('prologue')}Prologue · room 02`) + `<div class="pb"><div class="pr-head"><div><p class="eyebrow"><b class="ch-b">${chIcon('prologue')}</b>Progress · save file 01</p><h2 class="d pr-h">Progress</h2></div>${stats}</div><ol class="pr-road">${stages}</ol>${lanes}${solo ? `<div class="pr-solos"><span class="d pr-sl">Solo quests</span>${solo}</div>` : ''}</div>` };
     }
     case 'achievements':
-      return { html: ph('§0 · Prologue · room 03') + `<div class="pb"><p class="eyebrow"><b>§0</b>Achievements</p><h2 class="big-h" style="margin-top:8px">Trophy room</h2><div class="sec-h">This run <span style="font-family:var(--b);font-size:16px;color:var(--ink-soft)" id="ach-count"></span></div><div class="ach-grid" id="ach-grid"></div><div class="sec-h" style="margin-top:26px">Career</div><div class="career">${[['First titles shipped', 'Hidden Escape chapters at Vincell Studios'], ['Two MVPs shipped', 'Loopy Duck and Alien Out at Tap N Play']].map(([t, d]) => `<div class="ach"><span class="ai">${TROPHY}</span><span><b>${t}</b><span>${d}</span></span></div>`).join('')}</div></div>` };
+      return { html: ph(`${chIcon('prologue')}Prologue · room 03`) + `<div class="pb"><p class="eyebrow"><b class="ch-b">${chIcon('prologue')}</b>Achievements</p><h2 class="big-h" style="margin-top:8px">Trophy room</h2><div class="sec-h">This run <span style="font-family:var(--b);font-size:16px;color:var(--ink-soft)" id="ach-count"></span></div><div class="ach-grid" id="ach-grid"></div><div class="sec-h" style="margin-top:26px">Career</div><div class="career">${[['First titles shipped', 'Hidden Escape chapters at Vincell Studios'], ['Two MVPs shipped', 'Loopy Duck and Alien Out at Tap N Play']].map(([t, d]) => `<div class="ach"><span class="ai">${TROPHY}</span><span><b>${t}</b><span>${d}</span></span></div>`).join('')}</div></div>` };
     case 'contact':
-      return { html: ph('§0 · Prologue · room 04') + `<div class="pb"><div class="ct-grid"><div><p class="eyebrow"><b>§0</b>Party Invite</p><h2 class="stamp ct-h">${G.invite.heading}</h2><p class="c-log" style="max-width:32ch">${esc(G.invite.text)}</p></div><div class="ct-btns"><button class="btn" type="button" data-act="email"><span>Email<small>${esc(G.contact.email || 'Opens your mail app')}</small></span>${EXT}</button><button class="btn alt" type="button" data-act="linkedin"><span>LinkedIn<small>Connect or message</small></span>${EXT}</button><button class="btn alt" type="button" data-act="cv"><span>Résumé (PDF)<small>The short version</small></span>${ICON.d.replace('<svg', '<svg style="width:18px;height:18px"')}</button></div></div></div>` };
+      return { html: ph(`${chIcon('prologue')}Prologue · room 04`) + `<div class="pb"><div class="ct-grid"><div><p class="eyebrow"><b class="ch-b">${chIcon('prologue')}</b>Party Invite</p><h2 class="stamp ct-h">${G.invite.heading}</h2><p class="c-log" style="max-width:32ch">${esc(G.invite.text)}</p></div><div class="ct-btns"><button class="btn" type="button" data-act="email"><span>Email<small>${esc(G.contact.email || 'Opens your mail app')}</small></span>${EXT}</button><button class="btn alt" type="button" data-act="linkedin"><span>LinkedIn<small>Connect or message</small></span>${EXT}</button><button class="btn alt" type="button" data-act="cv"><span>Résumé (PDF)<small>The short version</small></span>${ICON.d.replace('<svg', '<svg style="width:18px;height:18px"')}</button></div></div></div>` };
     case 'section': {
       const qs = MAPROWS[rm.r].slice(1);
       const st = x => x.kind === 'gallery' ? (x.art.pieces.length ? `${x.art.pieces.length} pieces` : 'Coming soon') : x.q.st;
@@ -558,7 +571,7 @@ function renderReal(id) {
     if (stack.dataset.key !== key) {
       stack.dataset.key = key;
       stack.dataset.stack = 0;
-      stack.innerHTML = cards.map((it, k) => `<span class="m-card" data-k="${k}">${shotHTML(it)}</span>`).join('') + (cards.length > 1 ? `<span class="m-tap">☝ Tap for next · <b>1</b> / ${cards.length}</span>` : '');
+      stack.innerHTML = cards.map((it, k) => `<span class="m-card" data-k="${k}">${shotHTML(it)}</span>`).join('') + (cards.length > 1 ? `<span class="m-tap">☝ Tap for next&nbsp;·&nbsp;<b>1</b>&nbsp;/&nbsp;${cards.length}</span>` : '');
       stack.classList.toggle('single', cards.length < 2);
     }
   }
@@ -660,8 +673,8 @@ function pickGallery(room, k) {
 function renderMap() {
   const ov = $('#overlay');
   const here = ROOMS[cur] || ROOMS.title;
-  const where = here.sec ? `§${here.sec.no} ${esc(here.sec.label)} · ${esc(here.title)}` : esc(here.title);
-  const rows = MAPROWS.map((row, r) => `<div class="pz-row"><span class="d pz-rn">§${r}</span>${row.map(rm => {
+  const where = here.sec ? `${chIcon(here.sec.id)}${esc(here.sec.label)} · ${esc(here.title)}` : esc(here.title);
+  const rows = MAPROWS.map((row, r) => `<div class="pz-row"><span class="pz-rn">${chIcon(r ? SECTIONS[r - 1].id : 'prologue')}</span>${row.map(rm => {
     const seen = save.visited.includes(rm.id), h = rm.id === cur;
     if (rm.c === 0) return `<button class="pz-card sec${h ? ' here' : ''}" type="button" data-go="${rm.id}"><span class="d">${esc(rm.title)}</span>${h ? '<i>YOU</i>' : ''}</button>`;
     return `<button class="pz-card${seen || h ? '' : ' fog'}${h ? ' here' : ''}" type="button" data-go="${rm.id}" title="${esc(rm.title)}"><span class="pz-th">${roomThumb(rm)}</span><span class="d pz-t">${esc(rm.title)}</span>${h ? '<i>YOU</i>' : ''}</button>`;

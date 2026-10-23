@@ -739,3 +739,32 @@
 .m-notes[data-orient="land"] .m-nbody { display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; align-items: start; }
 .m-notes[data-orient="land"] .m-nti, .m-notes[data-orient="land"] .m-ntx { grid-column: 2; margin-top: 2px; }
 .m-notes[data-orient="land"] .m-nno { grid-row: 1 / span 2; }
+/* chapter icons (replace the old § numbers) */
+.ch-ic { width: 1.15em; height: 1.15em; flex: none; display: inline-block; vertical-align: -0.2em; }
+.ph .ch-ic { margin-right: .45em; color: var(--ink); }
+.dark .ph .ch-ic { color: var(--gold); }
+.t-chip { display: inline-flex; align-items: center; gap: 7px; }
+.t-chip .ch-ic { color: var(--gold); width: 18px; height: 18px; }
+.eyebrow b.ch-b { display: inline-grid; place-items: center; padding: 1px 6px; }
+.eyebrow b.ch-b .ch-ic { width: 17px; height: 17px; vertical-align: 0; }
+.pz-rn .ch-ic { width: 22px; height: 22px; color: var(--ink-soft); }
+.pz-side .ch-ic { color: var(--gold); margin-right: .3em; }
+.sec-th { width: 100%; height: 100%; display: grid; place-items: center; background: var(--gold); color: var(--ink); }
+.sec-th .ch-ic { width: 60%; height: 60%; max-width: 30px; max-height: 30px; }
+/* progress: side stages and side jobs that ran alongside */
+.pr-st.side .pr-node { background: var(--paper); border-style: dashed; box-shadow: none; }
+.pr-st.side .pr-card { border-style: dashed; box-shadow: none; background: var(--paper); }
+.pr-st.side .pr-tag { background: var(--paper); color: var(--ink); border: 2.5px dashed var(--ink); }
+.pr-lanes { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.pr-lane { position: relative; display: flex; align-items: center; gap: 12px; border: 4px dashed var(--ink); border-radius: 16px; padding: 9px 14px; background: var(--note); }
+.pr-lane::before, .pr-lane::after { content: ""; position: absolute; top: -22px; height: 18px; border-left: 4px dashed var(--ink); }
+.pr-lane::before { left: 30px; } .pr-lane::after { right: 30px; }
+.pr-lstar { width: 36px; height: 36px; flex: none; border-radius: 50%; border: 4px dashed var(--ink); display: grid; place-items: center; font-size: 15px; background: var(--paper); }
+.pr-ltx { min-width: 0; flex: 1; } .pr-ltx .d { font-size: 20px; display: block; line-height: 1.1; } .pr-ltx .pr-o { display: block; margin: 2px 0 0; font-size: 14px; } .pr-ltx .pr-d { display: block; margin: 0; }
+.pr-lane .pr-sk { margin: 0; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.pr-lane .pr-sk span { white-space: nowrap; }
+.M .pr-lanes { display: block; margin-top: 14px; }
+.M .pr-lane { grid-column: auto !important; flex-wrap: wrap; }
+.M .pr-lane::before, .M .pr-lane::after { display: none; }
+.M .pr-lane .pr-sk { margin: 0; flex-direction: row; flex-wrap: wrap; align-items: center; }
+.M .pr-ltx .pr-o, .M .pr-ltx .pr-d { display: block; margin: 2px 0 0; }
