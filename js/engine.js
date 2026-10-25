@@ -171,17 +171,28 @@ function questHTML(rm) {
   if (!items.length) return `<div class="pb">${head}${fallback}</div>`;
   const lab = realLabel(q, items);
   const load = '<span class="dev-load">Loading real screens…</span>';
-  const desk = `<div class="qa-grid only-D${q.films.length ? '' : ' no-film'}${q.trailer ? '' : ' no-trl'}" data-orient="port">
-      <div class="qa-scr"><div class="lab-s"${q.store && q.store.note ? ` title="${esc(q.store.note)}"` : ''}>${lab}</div><div class="dev"><button class="dev-screen" type="button" data-shot="next" data-idx="0" aria-label="Next screen">${load}</button></div><div class="ph-dots"></div></div>
-      <div class="qa-duo">${q.films.length ? `<div class="qa-film"><div class="lab-s">How I designed it</div>${filmBlock(q, 'film-sq')}</div>` : ''}${q.trailer ? `<div class="qa-trl"><div class="lab-s">Watch the game</div>${trailerCard(q)}</div>` : ''}</div>
-      <div class="qa-text"><p class="brief">${esc(q.brief)}</p>${factsHTML(q)}${listHTML(q)}${lootHTML(q)}</div>
+  // Desktop: a thumbnail rail picks what the big stage shows (real game, each design film, trailer); the story sits on the right.
+  const railShots = `<button class="q3-th on" type="button" data-view="shots" aria-pressed="true"><span class="q3-im port"><span class="q3-shotimg"></span></span><span class="q3-tl">Real game</span></button>`;
+  const railFilms = q.films.map((f, k) => `<button class="q3-th" type="button" data-view="film" data-film="${k}" aria-pressed="false"><span class="q3-im"><img src="${vposter(f)}" alt="" decoding="async"><b class="q3-pl">▶</b></span><span class="q3-tl">${esc(f.label)}</span></button>`).join('');
+  const railTrl = q.trailer && q.trailer.yt ? `<button class="q3-th" type="button" data-view="trl" aria-pressed="false"><span class="q3-im wide"><img src="${ytThumb(q.trailer.yt)}" alt="" referrerpolicy="no-referrer" decoding="async" data-hide-on-error="1"><b class="q3-pl">▶</b></span><span class="q3-tl">${esc(q.trailer.label || 'Gameplay video')}</span></button>` : '';
+  const nRail = 1 + q.films.length + (railTrl ? 1 : 0);
+  const f0 = q.films[0];
+  const filmPane = f0 ? `<div class="q3-pane q3-film"><div class="lab-s">How I designed it · <span class="q3-fl">${esc(f0.label)}</span></div><div class="screen q3-sq"><video muted loop playsinline preload="none" poster="${vposter(f0)}" data-src="${vsrc(f0)}" aria-label="${esc(f0.label)}"></video></div><div class="under"><button class="sound" type="button" aria-pressed="false">♪ Sound on</button></div></div>` : '';
+  const trlPane = railTrl ? `<div class="q3-pane q3-trl"><div class="lab-s">Watch the game</div>${trailerCard(q, 'q3-big')}</div>` : '';
+  const desk = `<div class="qa3 only-D${nRail > 1 ? '' : ' no-rail'}${nRail >= 5 ? ' dense' : ''}" data-orient="port" data-view="shots">
+      ${nRail > 1 ? `<div class="q3-rail">${railShots}${railFilms}${railTrl}</div>` : ''}
+      <div class="q3-stage">
+        <div class="q3-pane q3-shots"><div class="lab-s"${q.store && q.store.note ? ` title="${esc(q.store.note)}"` : ''}>${lab}</div><div class="dev"><button class="dev-screen" type="button" data-shot="next" data-idx="0" aria-label="Next screen">${load}</button></div><div class="ph-dots"></div></div>
+        ${filmPane}${trlPane}
+      </div>
+      <div class="qa-text">${head}<p class="brief">${esc(q.brief)}</p>${factsHTML(q)}${listHTML(q)}${lootHTML(q)}</div>
     </div>`;
   const noted = items.filter(x => (x.title || x.note) && !isVideo(x.src));
   const notes = noted.map((x, k) => `<div class="m-note${k % 2 ? ' flip' : ''}" data-src="${esc(x.src)}"><span class="m-nshot">${shotHTML(x)}<span class="real-tag">${x.own ? 'REAL GAME' : 'STORE'}</span></span><span class="m-nbody"><span class="m-nno">${k + 1}</span>${x.title ? `<span class="d m-nti">${esc(x.title)}</span>` : ''}${x.note ? `<span class="m-ntx">${esc(x.note)}</span>` : ''}</span></div>`).join('');
   const ahead = [notes && 'notes', q.trailer && 'trailer', q.films.length && 'film', q.list.length && (q.listTitle || 'objectives').toLowerCase()].filter(Boolean);
   const hint = ahead.length ? `<p class="m-hint">↓ scroll for ${ahead.length > 1 ? ahead.slice(0, -1).join(', ') + ' and ' + ahead[ahead.length - 1] : ahead[0]}</p>` : '';
   const mob = `<div class="only-M"><div class="lab-s m-lab">${lab}</div><button class="m-stack" type="button" data-stack="0" data-orient="port" aria-label="Tap for the next screen">${load}</button><p class="brief">${esc(q.brief)}</p>${hint}${notes ? `<div class="m-notes" data-orient="port"><div class="sec-h">The real game</div><div class="m-nsub">${noted.length} screen${noted.length > 1 ? 's' : ''} · what to notice</div>${notes}</div>` : ''}${q.trailer ? `<div class="sec-h">Watch the game</div>${trailerCard(q, 'm')}` : ''}${q.films.length ? `<div class="sec-h">How I designed it</div><div class="film">${filmBlock(q)}</div>` : ''}${factsHTML(q)}${listHTML(q)}${lootHTML(q)}</div>`;
-  return `<div class="pb qa"><div class="real-wrap">${head}${desk}${mob}</div><div class="fb-wrap">${head}${fallback}</div></div>`;
+  return `<div class="pb qa"><div class="real-wrap"><div class="only-M">${head}</div>${desk}${mob}</div><div class="fb-wrap">${head}${fallback}</div></div>`;
 }
 
 function galleryHTML(rm) {
@@ -559,7 +570,9 @@ function renderReal(id) {
   const d = st.dims[shown[0].i] || [9, 16];
   const orient = d[0] > d[1] * 1.05 ? 'land' : 'port';
   const ar = orient === 'land' ? 16 / 9 : Math.min(0.5625, Math.max(0.5, d[0] / d[1]));
-  room.querySelectorAll('.qa-grid, .m-stack, .m-notes').forEach(g => { g.dataset.orient = orient; g.style.setProperty('--ar', ar.toFixed(4)); });
+  room.querySelectorAll('.qa-grid, .qa3, .m-stack, .m-notes').forEach(g => { g.dataset.orient = orient; g.style.setProperty('--ar', ar.toFixed(4)); });
+  const rth = room.querySelector('.q3-shotimg');
+  if (rth && rth.dataset.src !== shown[0].src) { rth.dataset.src = shown[0].src; rth.innerHTML = shotHTML(shown[0]); }
   syncNotes(room, st);
   // keep the screen already on display while the others finish loading
   const at = shown.findIndex(x => x.src === st.painted);
@@ -576,6 +589,17 @@ function renderReal(id) {
     }
   }
   if (wasFallback && id === cur) activateMedia(cur);
+}
+function pickView(room, th) {
+  const box = th.closest('.qa3'), q = ROOMS[room.dataset.id].q, view = th.dataset.view;
+  box.querySelectorAll('.q3-th').forEach(b => { const on = b === th; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  box.dataset.view = view;
+  if (view === 'film') {
+    const f = q.films[+th.dataset.film], v = box.querySelector('.q3-film video');
+    box.querySelector('.q3-fl').textContent = f.label;
+    if (v && v.dataset.src !== vsrc(f)) { v.poster = vposter(f); v.dataset.src = vsrc(f); v.removeAttribute('src'); v.setAttribute('aria-label', f.label); }
+  }
+  activateMedia(room.dataset.id);
 }
 function syncNotes(room, st) {
   const box = room.querySelector('.m-notes'); if (!box) return;
@@ -735,6 +759,8 @@ slot.addEventListener('click', e => {
   if (!room) return;
   const yt = e.target.closest('[data-yt]');
   if (yt) { openTrailer(yt.dataset.yt, `${ROOMS[room.dataset.id].title} · ${(ROOMS[room.dataset.id].q.trailer || {}).label || 'Gameplay video'}`); return; }
+  const th = e.target.closest('.q3-th');
+  if (th) { pickView(room, th); return; }
   const shot = e.target.closest('[data-shot]');
   if (shot) {
     const st = REAL[room.dataset.id]; if (!st) return;

@@ -137,7 +137,7 @@ window.GDD = {
         { src: 'https://play-lh.googleusercontent.com/8R15iYvswfE35QBR4TI85Zx6-XUnXC1L69r5ITWqBHPa1MFb_u9AVwalUJFojjpisj81wYVetWVMcplxiG0rrQ=w1280-h1280', title: '', note: '' },
       ] },
       trailer: { yt: 'N3vPJ7n7foY', label: 'Official trailer' },
-      films: [{ id: '07-finding-the-gap', label: 'Finding the gap' }, { id: '09-ad-research', label: 'Ad research' }] },
+      films: [{ id: '25-alien-canvas', label: 'Level design' }, { id: '07-finding-the-gap', label: 'Finding the gap' }, { id: '09-ad-research', label: 'Ad research' }] },
 
     { id: 'loopy-duck', tab: 'main', title: 'Loopy Duck', short: 'Loopy Duck', sub: 'Tap N Play · 2026', eyebrow: 'Tap N Play Studios · Jan – Feb 2026', status: 'Completed · MVP shipped', st: 'MVP shipped', kind: 'done', thumb: '08-tuning-curve',
       brief: 'A one-tap puzzle. Send colourful groups of ducklings into the stream. Mismatched ducklings wait on islands, the right ones fill their basket, and the jam clears.',
@@ -163,7 +163,7 @@ window.GDD = {
         { src: 'https://play-lh.googleusercontent.com/47L-VPBSE1UGoH9iKUvwGP0zKxpEBcb1pBMy0p1-H1WEyQlbXdpdAL87B53jSTOAFGbNEautDtYNh5X9QB5PLg=w1280-h1280', title: '', note: '' },
       ] },
       trailer: { yt: 'RjxXNye6wGI', label: 'Official trailer' },
-      films: [{ id: '08-tuning-curve', label: 'Tuning the curve (illustrative)' }, { id: '09-ad-research', label: 'Ad research' }] },
+      films: [{ id: '24-loopy-canvas', label: 'Level design' }, { id: '08-tuning-curve', label: 'Tuning the curve (illustrative)' }, { id: '09-ad-research', label: 'Ad research' }] },
 
     { id: 'murder-mystery-2', tab: 'main', title: 'Hidden Escape: Murder Mystery 2', short: 'Murder Mystery 2', sub: 'Vincell · Chapter 7', eyebrow: 'Vincell Studios · Chapter 7', status: 'Completed · shipped', st: 'Shipped', kind: 'done', thumb: '13-mm2',
       brief: 'I designed and built Chapter 7, Killer In Plain Sight, from start to finish: its levels, its puzzles and the flow between them.',
