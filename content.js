@@ -262,10 +262,10 @@ window.GDD = {
       ],
       loot: [], gameplay: '', screens: [], films: [] },
 
-    { id: 'echo-shooter', tab: 'side', title: 'Echo Shooter 2D', short: 'Echo Shooter 2D', sub: 'Solo · college module', eyebrow: 'Solo · college prototyping module', status: 'v1 shipped · v2 in design', st: 'v2 in design', kind: 'done', thumb: '14-echo-shooter',
+    { id: 'echo-shooter', tab: 'side', title: 'Echo Shooter 2D', short: 'Echo Shooter 2D', sub: 'Solo · college module', eyebrow: 'Solo · college prototyping module', status: 'Completed · released', st: 'Released', kind: 'done', thumb: '14-echo-shooter',
       brief: 'Every sound is a signal. You are a lone fighter in the dark, hunted by enemies that track noise across escalating waves.',
       facts: [['Platform', 'PC'], ['Engine', 'Unity 2D'], ['Genre', 'Wave-based arcade shooter'], ['Role', 'Solo developer']],
-      listTitle: 'Objectives', list: ['Built the whole game solo in Unity 2D for a prototyping module', 'Designed sound-based enemy AI: moving and shooting draw enemies in', 'Two enemy types with different behaviours', 'Hold Shift to move silently, at a cost', '50+ escalating waves, with a choice of two skills after each one', 'Now redesigning it as v2: waves out, breakable chambers in'],
+      listTitle: 'Objectives', list: ['Built the whole game solo in Unity 2D for a prototyping module', 'Designed sound-based enemy AI: moving and shooting draw enemies in', 'Two enemy types with different behaviours', 'Hold Shift to move silently, at a cost', '50+ escalating waves, with a choice of two skills after each one', 'Its sound-as-a-signal idea became my personal project, Echo Shooter v2'],
       loot: [{ label: 'Play on itch.io', url: 'https://scary-ninja.itch.io/echo-shooter-2d' }],
       gameplay: '', screens: [], icon: 'https://img.itch.zone/aW1nLzIxODY0Njc4LnBuZw==/original/ifDwzB.png',
       store: { label: 'itch.io', shots: [
@@ -273,7 +273,34 @@ window.GDD = {
         { src: 'https://img.itch.zone/aW1hZ2UvMzY3NDcwNi8yMTg3MjI5Mi5wbmc=/original/YA9Tsk.png', title: '', note: '' },
         { src: 'https://img.itch.zone/aW1nLzIxODY0Njc4LnBuZw==/original/ifDwzB.png', title: '', note: '' },
       ] },
-      films: [{ id: '14-echo-shooter', label: 'v1 and the v2 redesign' }] },
+      films: [{ id: '14-echo-shooter', label: 'The game and what came next' }] },
+
+    { id: 'echo-shooter-v2', tab: 'side', title: 'Echo Shooter v2', short: 'Echo Shooter v2', sub: 'Personal project · 2026', eyebrow: 'Personal project · Oct 2026 – now', status: 'In development', st: 'In development', kind: 'wip', thumb: '26-echo-v2',
+      brief: 'A stealth roguelite in the dark where noise is your weapon. Enemies can’t see you, they only hear you, so you get loud on purpose and aim them at walls and at each other.',
+      facts: [['Role', 'Solo game designer, built with Claude (AI)'], ['Engine', 'Unity 6'], ['Genre', 'Stealth roguelite'], ['Scope', '8 rooms · 4 enemies + 2 sound devices'], ['Design doc', '20 sections']],
+      listTitle: 'Objectives', list: [
+        'Took the one idea from my college game, sound as a signal, and rebuilt the rest from scratch',
+        'Made noise the resource: enemies only hear you',
+        'Tested every rule in a Python simulation before writing Unity code',
+        'Raised noise decay from 8 to 25/s when the sim showed escape was impossible',
+        'Fixed a map rule that left 68 of 2,000 seeds unwinnable',
+        'Made every design call; Claude proposed options, ran numbers and wrote code',
+      ],
+      loot: [{ label: 'Full breakdown on GitHub', url: 'https://github.com/Rohitsy/echo-shooter-v2' }, { label: 'Where it started: v1', url: '#echo-shooter' }],
+      gameplay: '',
+      screens: [
+        { src: 'media/screens/echo-shooter/00_one_room.gif', title: 'Read the room', note: 'Two sleeping circles, one square, a thick wall in the way. You see almost nothing; you plan by sound.' },
+        { src: 'media/screens/echo-shooter/01_noise_ring.gif', title: 'Noise ring', note: 'Your ring is how far you are heard. Standing still it is 2 tiles; walking grows it.' },
+        { src: 'media/screens/echo-shooter/02_circle.gif', title: 'Circle', note: 'Sleeps until your ring touches it, then chases the sound, not you.' },
+        { src: 'media/screens/echo-shooter/03_square.gif', title: 'Square', note: 'Wakes on a sound you made and blasts where it heard you.' },
+        { src: 'media/screens/echo-shooter/04_bait.gif', title: 'Bait', note: 'You cannot attack, so lead circles into a square’s blast.' },
+        { src: 'media/screens/echo-shooter/06_thick_wall.gif', title: 'Thick wall', note: 'A slam does nothing. Only a baited blast opens it.' },
+        { src: 'media/screens/echo-shooter/10_screamer.gif', title: 'Screamer', note: 'Never attacks. It screams and sends everything to where you were.' },
+        { src: 'media/screens/echo-shooter/11_mimic.gif', title: 'Mimic', note: 'Records your noise and replays it 3 s later, louder.' },
+        { src: 'media/screens/echo-shooter/13_map.gif', title: 'How a run is built', note: 'Three fixed teaching rooms, then a seeded route through breakable walls.' },
+      ],
+      store: null,
+      films: [] },
 
     // TODO (Rohit): replace the objectives with what YOU did on the team
     { id: 'kitts-hog', tab: 'side', title: 'Kitt’s Hog: The Nightmare of Life', short: 'Kitt’s Hog', sub: 'IGDC 2019 · 7-day team game', eyebrow: 'College team · IGDC 2019 · 1st semester', status: 'Completed · released', st: 'Released', kind: 'done', thumb: '16-kitts-hog',
